@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity">
+
+    <TextView
+        android:text="@string/signText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:id="@+id/signInText"
+        android:textSize="23sp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:id="@+id/loginButton"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/signInText"
+        android:layout_toStartOf="@+id/signInText"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go Anonymus"
+        android:onClick="JumpToReportPage"
+        android:id="@+id/goAnonymusButton"
+        android:layout_above="@+id/registerButtonMain"
+        android:layout_alignLeft="@+id/signInText"
+        android:layout_alignStart="@+id/signInText"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/usernameText"
+        android:hint="Username"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/signInText"
+        android:layout_alignLeft="@+id/passwordInput"
+        android:layout_alignStart="@+id/passwordInput"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordInput"
+        android:hint="Password"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/usernameText"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register here"
+        android:id="@+id/registerButtonMain"
+        android:layout_marginTop="26dp"
+        android:onClick="JumpToRegisterPage"
+        android:clickable="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

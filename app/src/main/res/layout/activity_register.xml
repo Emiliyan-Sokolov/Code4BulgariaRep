@@ -1,0 +1,111 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.example.cripz.thereporter.RegisterActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Register"
+        android:id="@+id/registerText"
+        android:textSize="23sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Username"
+        android:ems="10"
+        android:id="@+id/registerUsernameText"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/registerText"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/registerPasswordText"
+        android:text="Password"
+        android:layout_below="@+id/registerUsernameText"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerFirstNameText"
+        android:text="Fisrt Name"
+        android:layout_below="@+id/registerPasswordText"
+        android:layout_alignLeft="@+id/registerLastNameText"
+        android:layout_alignStart="@+id/registerLastNameText"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerLastNameText"
+        android:text="Last Name"
+        android:layout_below="@+id/registerFirstNameText"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/registerEmailText"
+        android:text="Email"
+        android:layout_below="@+id/registerLastNameText"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/registerCityText"
+        android:layout_below="@+id/registerEmailText"
+        android:layout_centerHorizontal="true"
+        android:text="City"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/registerDateofBirthText"
+        android:text="Дата на раждане"
+        android:layout_below="@+id/registerPhoneNumberText"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/registerPhoneNumberText"
+        android:text="Телефон"
+        android:layout_below="@+id/registerCityText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/registerButtonRegisterActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/registerText"
+        android:layout_alignEnd="@+id/registerText"
+        android:layout_marginBottom="18dp"/>
+
+</RelativeLayout>

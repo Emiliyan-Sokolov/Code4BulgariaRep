@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TheReporter</string>
+
+    <string name="signText">Sign In</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_report">ReportActivity</string>
+</resources>
