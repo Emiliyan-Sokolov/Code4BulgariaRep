@@ -1,11 +1,18 @@
 package com.example.cripz.thereporter;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -13,8 +20,12 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.hide();
 		setContentView(R.layout.activity_main);
-	}
+
+
+}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -42,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
 		startActivity(i);
 	}
 	public void JumpToReportPage(View view){
-		Intent i = new Intent(this,ReportActivity.class);
-		startActivity(i);
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		startActivityForResult(intent, 0);
 	}
 }
