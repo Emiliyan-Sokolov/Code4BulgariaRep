@@ -7,7 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.concurrent.Executors;
@@ -66,9 +70,8 @@ public class ReportActivity extends ActionBarActivity {
 		}
 	}
 
-	public String getAddress(String lat, String lon)
-	{
-		String address = "";
+	public String getAddress(String lat, String lon) {
+		String address = "RR";
 		String source = "";
 		BufferedReader in = null;
 		String line;
@@ -76,17 +79,16 @@ public class ReportActivity extends ActionBarActivity {
 		String MAPS_API = "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
 
 		try {
-			URL url = new URL(MAPS_API + lat + ',' + lon);
-			in = new BufferedReader(new InputStreamReader(url.openStream()));
-			while ((line = in.readLine()) != null) {
-				source += line;
-			}
-		} catch (Exception e) {
+			Document doc = Jsoup.connect(MAPS_API + lat + ',' + lon).get();
+			String src = doc.html();
+			
+			address = src.split("\"formatted_address\" : \"")[1].split("\n")[0];
+		} catch (IOException e)	{
 			source = "Unexpected error";
 		}
 
+
 		if(source != "Unexpected error") {
-			address = source.split("\"formatted_address\" : \"")[1].split("\n")[0];
 			Toast.makeText(
 					getApplicationContext(),
 					address, Toast.LENGTH_LONG).show();
