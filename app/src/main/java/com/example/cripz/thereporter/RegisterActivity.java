@@ -1,6 +1,7 @@
 package com.example.cripz.thereporter;
 
 import android.content.Context;
+import android.os.Looper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,6 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 public class RegisterActivity extends ActionBarActivity {
@@ -50,6 +56,31 @@ public class RegisterActivity extends ActionBarActivity {
 		Context context = getApplicationContext();
 		Toast noInternet = Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT);
 		String firstName, surName, familyName, city, email, phoneNumber;
+
+		void saveToCache(userInfo u) {
+			try {
+				FileOutputStream fos = context.openFileOutput("info", Context.MODE_PRIVATE);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(u);
+				oos.close();
+				fos.close();
+			} catch (Exception e) {
+				String c = "GG no re";
+			}
+		}
+
+		userInfo readFromCache(final Context context) {
+			userInfo object = null;
+			try {
+				Looper.prepare();
+				FileInputStream fis = context.openFileInput("info");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+
+				object = (userInfo) ois.readObject();
+			} catch (Exception e) {}
+
+			return object;
+		}
 
 		protected Void doInBackground(String... params) {
 			final Button button = (Button) findViewById(R.id.registerButtonRegisterActivity);
