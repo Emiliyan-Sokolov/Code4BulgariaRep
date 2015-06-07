@@ -7,6 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
 
 public class ReportActivity extends ActionBarActivity {
 
@@ -49,6 +53,9 @@ public class ReportActivity extends ActionBarActivity {
 				latitude = gps.getLatitude();
 				longitude = gps.getLongitude();
 			}
+
+			String address = getAddress(Double.toString(latitude), Double.toString(longitude));
+
 			Toast.makeText(
 					getApplicationContext(),
 					"Your Location is -\nLat: " + latitude + "\nLong: "
@@ -56,5 +63,38 @@ public class ReportActivity extends ActionBarActivity {
 		} else {
 			gps.showSettingsAlert();
 		}
+	}
+
+	public String getAddress(String lat, String lon)
+	{
+		String address = "";
+		String source = "";
+		BufferedReader in = null;
+		String line;
+
+		String MAPS_API = "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
+
+		try {
+			URL url = new URL(MAPS_API + lat + ',' + lon);
+			in = new BufferedReader(new InputStreamReader(url.openStream()));
+			while ((line = in.readLine()) != null) {
+				source += line;
+			}
+		} catch (Exception e) {
+			source = "Unexpected error";
+		}
+
+		if(source != "Unexpected error") {
+			address = source.split("\"formatted_address\" : \"")[1].split("\n")[0];
+			Toast.makeText(
+					getApplicationContext(),
+					address, Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(
+					getApplicationContext(),
+					"It's fucked m8", Toast.LENGTH_LONG).show();
+		}
+
+		return address;
 	}
 }
