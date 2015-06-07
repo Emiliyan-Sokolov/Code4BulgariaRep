@@ -6,15 +6,106 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:background="@drawable/main_background"
                 tools:context="com.example.cripz.thereporter.ReportActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get Location"
-        android:onClick="getLocation"
-        android:id="@+id/getLocationButton"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Подай Сигнал"
+            android:id="@+id/registerText"
+            android:textSize="23sp"
+            android:layout_weight="5"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Къде?"
+            android:id="@+id/whereText"
+            android:textSize="23sp"
+            android:layout_weight="5"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstNameText"
+            android:hint=" Име"
+            android:textColorHint="#f22e52"
+            android:layout_weight="10"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_corners_for_edit_text_in_register"
+            android:layout_below="@+id/registerText"/>
+
+        <CheckBox android:id="@+id/location_checkbox"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="#FFFFFF"
+                  android:text="Използвай текущото ми местонахождение"
+                  android:onClick="onCheckboxClicked"
+                  android:layout_weight="10"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Какво е нарушението?"
+            android:id="@+id/violationText"
+            android:textSize="23sp"
+            android:layout_weight="5"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/violationEditText"
+            android:layout_weight="10"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_corners_for_edit_text_in_register"
+            android:layout_below="@+id/registerText"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="или изберете някоя от следните категории"
+            android:id="@+id/elseText"
+            android:layout_weight="5"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"/>
+
+        <Spinner
+            android:id="@+id/pick_violation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добави снимка"
+            android:textColor="#FFFFFF"
+            android:layout_weight="10"
+            android:background="@drawable/rounded_corners_fot_save_button"
+            android:id="@+id/add_picture_button"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Изпрати"
+            android:textColor="#FFFFFF"
+            android:layout_weight="10"
+            android:background="@drawable/rounded_corners_fot_save_button"
+            android:id="@+id/send_report_button"/>
+
+    </LinearLayout>
 </RelativeLayout>

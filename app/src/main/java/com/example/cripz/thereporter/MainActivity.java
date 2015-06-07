@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
 		startActivity(i);
 	}
 	public void JumpToReportPage(View view){
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		startActivityForResult(intent, 0);
+		Intent i = new Intent(this, ReportActivity.class);
+		startActivity(i);
 	}
 }
