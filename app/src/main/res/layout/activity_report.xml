@@ -33,15 +33,14 @@
             android:id="@+id/whereText"
             android:textSize="23sp"
             android:layout_weight="5"
-            android:textColor="#FFFFFF"
-            android:gravity="center_horizontal"/>
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/firstNameText"
-            android:hint=" Име"
-            android:textColorHint="#f22e52"
+            android:hint=" София-град"
+            android:textColor="#f22e52"
             android:layout_weight="10"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_corners_for_edit_text_in_register"
@@ -51,9 +50,11 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="#FFFFFF"
+                  android:textSize="12sp"
                   android:text="Използвай текущото ми местонахождение"
                   android:onClick="onCheckboxClicked"
-                  android:layout_weight="10"/>
+                  android:layout_weight="5"
+                  android:checked="true"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -62,8 +63,7 @@
             android:id="@+id/violationText"
             android:textSize="23sp"
             android:layout_weight="5"
-            android:textColor="#FFFFFF"
-            android:gravity="center_horizontal"/>
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:layout_width="fill_parent"
@@ -87,6 +87,12 @@
             android:id="@+id/pick_violation"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="#f22e52"
+            android:background="@drawable/rounded_corners_for_edit_text_in_register"
+            android:layout_weight="15"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="10"/>
 
         <Button
@@ -94,18 +100,27 @@
             android:layout_height="wrap_content"
             android:text="Добави снимка"
             android:textColor="#FFFFFF"
-            android:layout_weight="10"
+            android:layout_weight="5"
+            android:onClick="makePicture"
             android:background="@drawable/rounded_corners_fot_save_button"
             android:id="@+id/add_picture_button"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Изпрати"
             android:textColor="#FFFFFF"
-            android:layout_weight="10"
+            android:layout_weight="5"
             android:background="@drawable/rounded_corners_fot_save_button"
             android:id="@+id/send_report_button"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"/>
 
     </LinearLayout>
 </RelativeLayout>

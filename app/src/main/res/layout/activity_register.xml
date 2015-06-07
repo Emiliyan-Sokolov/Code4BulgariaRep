@@ -33,6 +33,7 @@
             android:id="@+id/firstNameText"
             android:hint=" Име"
             android:layout_weight="10"
+            android:textColor="#f22e52"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_corners_for_edit_text_in_register"
             android:layout_below="@+id/registerText"/>
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/surnameNameText"
             android:hint=" Презиме"
+            android:textColor="#f22e52"
             android:layout_weight="10"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_corners_for_edit_text_in_register"
@@ -55,6 +57,7 @@
             android:hint=" Фамилия"
             android:layout_weight="10"
             android:layout_marginBottom="5dp"
+            android:textColor="#f22e52"
             android:background="@drawable/rounded_corners_for_edit_text_in_register"
             android:layout_below="@+id/surnameNameText"
             android:layout_centerHorizontal="true"/>
@@ -65,15 +68,17 @@
             android:id="@+id/cityText"
             android:layout_weight="10"
             android:layout_marginBottom="5dp"
+            android:textColor="#f22e52"
             android:background="@drawable/rounded_corners_for_edit_text_in_register"
             android:layout_below="@+id/familyNameText"
-            android:hint=" Населено място"
+            android:hint="Населено място"
             android:layout_centerHorizontal="true"/>
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/inputEmailText"
+            android:textColor="#f22e52"
             android:hint=" E-mail"
             android:layout_weight="10"
             android:layout_marginBottom="5dp"
@@ -89,6 +94,7 @@
             android:id="@+id/phoneNumberText"
             android:layout_weight="10"
             android:hint=" Телефон"
+            android:textColor="#f22e52"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_corners_for_edit_text_in_register"
             android:layout_below="@+id/inputEmailText"/>

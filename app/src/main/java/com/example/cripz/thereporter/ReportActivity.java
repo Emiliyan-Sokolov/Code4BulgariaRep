@@ -1,10 +1,14 @@
 package com.example.cripz.thereporter;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -26,7 +30,14 @@ public class ReportActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.hide();
 		setContentView(R.layout.activity_report);
+
+		Spinner dropdown = (Spinner)findViewById(R.id.pick_violation);
+		String[] items = new String[]{"Бездомни кучета", "Дупки по пътищата", "Насилие"};
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
+		dropdown.setAdapter(adapter);
 	}
 
 	@Override
@@ -98,6 +109,15 @@ public class ReportActivity extends ActionBarActivity {
 		}
 
 		return address;
+	}
+
+	public void makePicture(View view) {
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		startActivityForResult(intent, 0);
+	}
+
+	public void onCheckboxClicked(View view) {
+		gps = new GPSLocation(ReportActivity.this);
 	}
 
 	public void onLocationReceived(double lat, double lon) {
