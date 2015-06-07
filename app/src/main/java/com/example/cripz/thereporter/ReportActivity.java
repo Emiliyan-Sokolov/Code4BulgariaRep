@@ -10,11 +10,17 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 
 public class ReportActivity extends ActionBarActivity {
+	private final ScheduledExecutorService scheduler =
+			Executors.newScheduledThreadPool(1);
+	private ScheduledFuture execHandle;
 
-	GPSLocation gps;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,23 +49,18 @@ public class ReportActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	public void getLocation(View view) {
-		gps = new GPSLocation(ReportActivity.this);
+		final GPSLocation gps = new GPSLocation(ReportActivity.this);
 
 		if(gps.canGetLocation()) {
-			double latitude = gps.getLatitude();
-			double longitude = gps.getLongitude();
-			while(latitude == 0 && longitude == 0){
-				gps = new GPSLocation(ReportActivity.this);
-				latitude = gps.getLatitude();
-				longitude = gps.getLongitude();
-			}
+			Bundle executionRes = new Bundle();
 
-			String address = getAddress(Double.toString(latitude), Double.toString(longitude));
-
-			Toast.makeText(
-					getApplicationContext(),
-					"Your Location is -\nLat: " + latitude + "\nLong: "
-							+ longitude, Toast.LENGTH_LONG).show();
+			final Runnable beeper = new Runnable() {
+				public void run() {
+					Neshto locationTask = new Neshto(gps, ReportActivity.this);
+					locationTask.execute();
+				};
+			};
+			execHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, TimeUnit.SECONDS);
 		} else {
 			gps.showSettingsAlert();
 		}
@@ -96,5 +97,13 @@ public class ReportActivity extends ActionBarActivity {
 		}
 
 		return address;
+	}
+
+	public void onLocationReceived(double lat, double lon) {
+		String address = getAddress(Double.toString(lat), Double.toString(lon));
+		execHandle.cancel(true);
+		Toast.makeText(
+				getApplicationContext(),
+				address, Toast.LENGTH_LONG).show();
 	}
 }
