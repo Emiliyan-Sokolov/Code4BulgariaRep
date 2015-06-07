@@ -21,9 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ReportActivity extends ActionBarActivity {
-	private final ScheduledExecutorService scheduler =
-			Executors.newScheduledThreadPool(1);
-	private ScheduledFuture execHandle;
+	private GPSLocation gps;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +51,26 @@ public class ReportActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	public void getLocation(View view) {
-		final GPSLocation gps = new GPSLocation(ReportActivity.this);
+		gps = new GPSLocation(ReportActivity.this);
 
-		if(gps.canGetLocation()) {
-			Bundle executionRes = new Bundle();
-
-			final Runnable beeper = new Runnable() {
-				public void run() {
-					Neshto locationTask = new Neshto(gps, ReportActivity.this);
-					locationTask.execute();
-				};
-			};
-			execHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, TimeUnit.SECONDS);
-		} else {
-			gps.showSettingsAlert();
-		}
+//		if(gps.canGetLocation()) {
+//			Bundle executionRes = new Bundle();
+//
+//			final Runnable beeper = new Runnable() {
+//				public void run() {
+//					Neshto locationTask = new Neshto(gps, ReportActivity.this);
+//					locationTask.execute();
+//				};
+//			};
+//			execHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, TimeUnit.SECONDS);
+//		} else {
+//			gps.showSettingsAlert();
+//		}
 	}
 
-	public String getAddress(String lat, String lon) {
-		String address = "RR";
+	public String getAddress(String lat, String lon)
+	{
+		String address = "";
 		String source = "";
 		BufferedReader in = null;
 		String line;
@@ -81,14 +80,14 @@ public class ReportActivity extends ActionBarActivity {
 		try {
 			Document doc = Jsoup.connect(MAPS_API + lat + ',' + lon).get();
 			String src = doc.html();
-			
+
 			address = src.split("\"formatted_address\" : \"")[1].split("\n")[0];
 		} catch (IOException e)	{
 			source = "Unexpected error";
 		}
 
-
 		if(source != "Unexpected error") {
+			address = source.split("\"formatted_address\" : \"")[1].split("\n")[0];
 			Toast.makeText(
 					getApplicationContext(),
 					address, Toast.LENGTH_LONG).show();
@@ -103,7 +102,7 @@ public class ReportActivity extends ActionBarActivity {
 
 	public void onLocationReceived(double lat, double lon) {
 		String address = getAddress(Double.toString(lat), Double.toString(lon));
-		execHandle.cancel(true);
+		gps.stopListeningForUpdates();
 		Toast.makeText(
 				getApplicationContext(),
 				address, Toast.LENGTH_LONG).show();

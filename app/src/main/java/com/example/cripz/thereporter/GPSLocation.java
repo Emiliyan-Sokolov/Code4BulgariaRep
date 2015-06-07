@@ -30,6 +30,7 @@ public class GPSLocation extends Service implements LocationListener{
 	private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
 
 	protected LocationManager locationManager;
+	protected LocationListener locationListener;
 
 	public GPSLocation(Context context) {
 		this.context = context;
@@ -42,26 +43,49 @@ public class GPSLocation extends Service implements LocationListener{
 
 			isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-			isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-				if(isGPSEnabled) {
-                    this.canGetLocation = true;
-					if(location == null) {
-						locationManager.requestLocationUpdates(
-								LocationManager.GPS_PROVIDER,
-								MIN_TIME_BW_UPDATES,
-								MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
-						if(locationManager != null) {
-							location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-							if(location != null) {
-								latitude = location.getLatitude();
-								longitude = location.getLongitude();
-							}
-						}
+			// Define a listener that responds to location updates
+			locationListener = new LocationListener() {
+				public void onLocationChanged(Location location) {
+					if (location.getLatitude() != 0 && location.getLongitude() != 0){
+						((ReportActivity) context).onLocationReceived(location.getLatitude(), location.getLongitude());
+						Log.d("GPS", "on location changed");
 					}
 				}
+
+				public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+				public void onProviderEnabled(String provider) {
+					Log.d("GPS", "PROVIDER ENABLED" + provider);
+				}
+
+				public void onProviderDisabled(String provider) {
+					Log.d("GPS", "PROVIDER DISABLED" + provider);
+				}
+			};
+
+// Register the listener with the Location Manager to receive location updates
+			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, locationListener);
+
+			isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+//				if(isGPSEnabled) {
+//                    this.canGetLocation = true;
+//					if(location == null) {
+//						locationManager.requestLocationUpdates(
+//								LocationManager.GPS_PROVIDER,
+//								MIN_TIME_BW_UPDATES,
+//								MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+//
+//						if(locationManager != null) {
+//							location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//							if(location != null) {
+//								latitude = location.getLatitude();
+//								longitude = location.getLongitude();
+//							}
+//						}
+//					}
+//				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,6 +93,12 @@ public class GPSLocation extends Service implements LocationListener{
 		return location;
 	}
 
+	public void stopListeningForUpdates(){
+		if (locationManager != null && locationListener != null){
+			Log.e("GPS", "stop listening");
+			locationManager.removeUpdates(locationListener);
+		}
+	}
 
 	public void stopUsingGPS() {
 		if(locationManager != null) {
