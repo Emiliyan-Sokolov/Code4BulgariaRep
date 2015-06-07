@@ -1,9 +1,5 @@
 package com.example.cripz.thereporter;
 
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,15 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 
 public class ReportActivity extends ActionBarActivity {
-	Location loc;
-	GPSLocation gps;
 
+	GPSLocation gps;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,46 +38,23 @@ public class ReportActivity extends ActionBarActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
-
-	public String getAddress(String lat, String lon)
-	{
-		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
-		String ret = "";
-		try {
-			List<Address> addresses = geocoder.getFromLocation(Double.parseDouble(lat), Double.parseDouble(lon), 1);
-			if(addresses != null) {
-				Address returnedAddress = addresses.get(0);
-				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
-				for(int i=0; i<returnedAddress.getMaxAddressLineIndex(); i++) {
-					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
-				}
-				ret = strReturnedAddress.toString();
-			}
-			else{
-				ret = "No Address returned!";
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			ret = "Can't get Address!";
-		}
-		return ret;
-	}
-
 	public void getLocation(View view) {
 		gps = new GPSLocation(ReportActivity.this);
 
-		if (gps.canGetLocation()) {
-			gps = new GPSLocation(ReportActivity.this);
-
-			if (gps.canGetLocation()) {
-				double latitude = gps.getLatitude();
-				double longitude = gps.getLongitude();
-
-				String bla = getAddress(Double.toString(latitude), Double.toString(longitude));
-
-				Toast.makeText(getApplicationContext(), bla, Toast.LENGTH_LONG).show();
+		if(gps.canGetLocation()) {
+			double latitude = gps.getLatitude();
+			double longitude = gps.getLongitude();
+			while(latitude == 0 && longitude == 0){
+				gps = new GPSLocation(ReportActivity.this);
+				latitude = gps.getLatitude();
+				longitude = gps.getLongitude();
 			}
+			Toast.makeText(
+					getApplicationContext(),
+					"Your Location is -\nLat: " + latitude + "\nLong: "
+							+ longitude, Toast.LENGTH_LONG).show();
+		} else {
+			gps.showSettingsAlert();
 		}
 	}
 }

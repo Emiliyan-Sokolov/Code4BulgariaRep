@@ -23,8 +23,8 @@ public class GPSLocation extends Service implements LocationListener{
 
 	Location location;
 
-	double latitude=1;
-	double longitude=1;
+	double latitude;
+	double longitude;
 
 	private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
 	private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
@@ -44,32 +44,8 @@ public class GPSLocation extends Service implements LocationListener{
 
 			isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-			if(!isGPSEnabled && !isNetworkEnabled) {
-
-			} else {
-				this.canGetLocation = true;
-
-				if (isNetworkEnabled) {
-
-					locationManager.requestLocationUpdates(
-							LocationManager.NETWORK_PROVIDER,
-							MIN_TIME_BW_UPDATES,
-							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
-					if (locationManager != null) {
-						location = locationManager
-								.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-						if (location != null) {
-
-							latitude = location.getLatitude();
-							longitude = location.getLongitude();
-						}
-					}
-
-				}
-
 				if(isGPSEnabled) {
+                    this.canGetLocation = true;
 					if(location == null) {
 						locationManager.requestLocationUpdates(
 								LocationManager.GPS_PROVIDER,
@@ -86,8 +62,6 @@ public class GPSLocation extends Service implements LocationListener{
 						}
 					}
 				}
-			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -104,14 +78,14 @@ public class GPSLocation extends Service implements LocationListener{
 
 	public double getLatitude() {
 		if(location != null) {
-			//latitude = location.getLatitude();
+			latitude = location.getLatitude();
 		}
 		return latitude;
 	}
 
 	public double getLongitude() {
 		if(location != null) {
-			//longitude = location.getLongitude();
+			longitude = location.getLongitude();
 		}
 
 		return longitude;
